@@ -17,11 +17,10 @@ timeout(300) {
                     sh "USER=${username} PASSWORD=${password} python3 ${parameters.configScriptPath}"
                 }
             }
-
-            stage('Start update jobs') {
-                dir('api-tests') {
-                    sh "/home/asgor/.local/bin/jenkins-jobs --conf /home/asgor/jenkins/config/job.ini update /home/asgor/jenkins/jobs/"
-                }
+        }
+        stage('Start update jobs') {
+            dir('api-tests') {
+                sh "/home/asgor/.local/bin/jenkins-jobs --conf /home/asgor/jenkins/config/job.ini update /home/asgor/jenkins/jobs/"
             }
         }
     }

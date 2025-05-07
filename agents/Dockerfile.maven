@@ -1,0 +1,7 @@
+FROM jenkins/agent:latest-jdk21
+
+USER root
+
+RUN apt update -y \
+    && apt install -y maven
+

@@ -1,0 +1,14 @@
+---
+
+- view:
+    name: DevOps
+    view-type: list
+    filter-executors: true
+    filter-queue: true
+    columns:
+      - job
+      - status
+      - weather
+      - build-button
+    job-name:
+      - job-uploader

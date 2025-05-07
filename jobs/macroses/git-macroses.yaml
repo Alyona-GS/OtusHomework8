@@ -1,0 +1,11 @@
+---
+
+- scm:
+    name: 'jobs-updater'
+    scm:
+      - git:
+          url: https://github.com/Alyona-GS/OtusHomework8.git
+          credentials-id: jenkins
+          branches:
+              - FETCH_HEAD
+          refspec: $REFSPEC

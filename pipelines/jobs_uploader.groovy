@@ -1,5 +1,5 @@
 timeout(300) {
-    node('maven') {
+    node('python') {
         currentBuild.description = """
         BRANCH=${REFSPEC}
         Owner=${env.BUILD_USER}

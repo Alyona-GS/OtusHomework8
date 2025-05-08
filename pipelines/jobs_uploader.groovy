@@ -20,7 +20,7 @@ timeout(300) {
         }
         stage('Start update jobs') {
             dir('api-tests') {
-                sh "/home/asgor/.local/bin/jenkins-jobs --conf /home/asgor/jenkins/config/job.ini update /home/asgor/jenkins/jobs/"
+                sh "jenkins-jobs --conf ./config/job.ini update ./jobs/"
             }
         }
     }

@@ -9,12 +9,12 @@ timeout(300) {
                 checkout scm
             }
         }
-        def parameters = load './pipelines/parameters.groovy'
+        def configScriptPath = './config/config.py'
 
         stage('Generate job.ini config') {
             dir('api-tests') {
                 withCredentials([usernamePassword(credentialsId: 'jobs_builder_creds', usernameVariable: 'username', passwordVariable: 'password')]) {
-                    sh "USER=${username} PASSWORD=${password} python3 ${parameters.configScriptPath}"
+                    sh "USER=${username} PASSWORD=${password} python3 ${configScriptPath}"
                 }
             }
         }

@@ -2,7 +2,7 @@ timeout(300) {
     node('python') {
         currentBuild.description = """
         BRANCH=${REFSPEC}
-        Owner=${BUILD_USER}
+        Owner=${env.BUILD_USER}
         """
         stage('Checkout') {
             dir('api-tests') {

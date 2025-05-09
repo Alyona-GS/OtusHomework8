@@ -1,0 +1,13 @@
+- job-template:
+    name: api_tests_job
+    description: 'API tests job'
+    project-type: pipeline
+    parameters:
+      - string:
+          name: REFSPEC
+          default: master
+          description: 'branch of api_tests'
+    pipeline-scm:
+      scm:
+        - api-tests-job
+      script-path: pipelines/api_tests.groovy

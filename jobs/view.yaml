@@ -25,3 +25,4 @@
       - build-button
     job-name:
       - ui_tests_job
+      - api_tests_job

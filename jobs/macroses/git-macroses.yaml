@@ -9,3 +9,13 @@
           branches:
               - FETCH_HEAD
           refspec: $REFSPEC
+
+- scm:
+      name: 'ui-tests-job'
+      scm:
+          - git:
+                url: https://github.com/Alyona-GS/OtusHomework1.git
+                credentials-id: jenkins
+                branches:
+                    - FETCH_HEAD
+                refspec: $REFSPEC

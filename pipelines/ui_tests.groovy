@@ -3,13 +3,17 @@ timeout(360) {
     node('maven') {
         stage('Checkout') {
             checkout scm
+            dir('ui_tests') {
+                git "https://github.com/Alyona-GS/OtusHomework1.git"
+            }
         }
 
         def yamlConfig = readYaml text: "${YAML_CONFIG}"
 
         stage('Running tests') {
             def exitCode = sh(
-                    script: "mvn test -Dbrowser=${yamlConfig.BROWSER} -DbrowserVersion=${yamlConfig.BROWSER_VERSION}",
+                    script: "cd ui_tests; mvn test -Dbrowser=${yamlConfig.BROWSER} -DbrowserVersion=${yamlConfig.BROWSER_VERSION}",
+                    //"docker run --network=host " имя образа с параметрами -v
                     returnStatus: true
             )
             if(exitCode > 0) {
@@ -34,6 +38,7 @@ timeout(360) {
         stage('Send notification') {
             def report = readFile './allure-report/widgets/summary.json'
             def slurped = new JsonSlurperClassic().parseText(report)
+            getNotifyMessage(slurped)
         }
     }
 }
@@ -43,5 +48,8 @@ def getNotifyMessage(statistic) {
     statistic.each { k, v ->
         message += "\t${k}: ${v}\n"
     }
-    sh ""
+
+    withCredentials(string([credentialsId: chat_id, var: chat_id]), string([credentialsId: token, var: botToken])) {
+        sh "curl -s -X POST -H 'Content-Type: application/json' -d '{\"chat_id\": \"${chat_id}\", \"text\": \"${message}\"}' https://api.telegram.org/bot${botToken}/sendMessage\n"
+    }
 }

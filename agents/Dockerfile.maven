@@ -4,4 +4,3 @@ USER root
 
 RUN apt update -y \
     && apt install -y maven
-

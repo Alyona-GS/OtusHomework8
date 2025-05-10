@@ -16,7 +16,7 @@ timeout(300) {
         for(def type in yamlConfig.TESTS_TYPE) {
             jobs.type = node('python') {
                 stage("RUNNING ${type} tests") {
-                    sh "docker run ..."
+                    sh "docker run ... localhost:5005/${type}_tests:1.0.0"
                 }
             }
         }
@@ -24,7 +24,11 @@ timeout(300) {
         parallel jobs
 
         stage('Copy allure artifacts') {
-            copyArtifacts()
+//            jobs.each { k, job -> {
+//                dir('allure-results') {
+//                    copyArtifacts filter: 'allure-reports.zip', fingerprintArtifacts: true, projectName: job.Job_Name, selector: specific(job.BUILD_NUMBER)
+//                }
+//            })
         }
     }
 }

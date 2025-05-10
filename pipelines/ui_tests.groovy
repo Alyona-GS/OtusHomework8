@@ -5,7 +5,7 @@ timeout(360) {
             checkout scm
         }
 
-        def yamlConfig = readYaml text: ${YAML_CONFIG}
+        def yamlConfig = readYaml text: "${YAML_CONFIG}"
 
         stage('Running tests') {
             def exitCode = sh(

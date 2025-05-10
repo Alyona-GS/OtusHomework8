@@ -14,7 +14,7 @@
       name: 'ui-tests-job'
       scm:
           - git:
-                url: https://github.com/Alyona-GS/OtusHomework1.git
+                url: https://github.com/Alyona-GS/OtusHomework8.git
                 credentials-id: jenkins
                 branches:
                     - FETCH_HEAD
@@ -24,7 +24,7 @@
     name: 'api-tests-job'
     scm:
       - git:
-          url: https://github.com/Alyona-GS/OtusHomework3.git
+          url: https://github.com/Alyona-GS/OtusHomework8.git
           credentials-id: jenkins
           branches:
             - FETCH_HEAD

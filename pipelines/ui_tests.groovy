@@ -4,7 +4,7 @@ timeout(360) {
         stage('Checkout') {
             checkout scm
             dir('ui_tests') {
-                git "https://github.com/Alyona-GS/OtusHomework4.git"
+                git "https://github.com/Alyona-GS/OtusHomework1.git"
             }
         }
 

@@ -10,7 +10,7 @@ timeout(360) {
 
         stage('Running tests') {
             def exitCode = sh(
-                    script: "cd api_tests; mvn -e -X test",
+                    script: "cd api_tests; mvn -B -e -X test",
                     returnStatus: true
             )
             if(exitCode > 0) {
@@ -19,16 +19,14 @@ timeout(360) {
         }
 
         stage('Publish allure') {
-            script('Publish allure report') {
-                dir('api-tests') {
-                    allure([
-                            includeProperties: false,
-                            jdk              : '',
-                            properties       : [],
-                            reportBuildPolicy: 'ALWAYS',
-                            results          : [[path: './allure-results']]
-                    ])
-                }
+            dir('api-tests') {
+                allure([
+                        includeProperties: false,
+                        jdk              : '',
+                        properties       : [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results          : [[path: './allure-results']]
+                ])
             }
         }
 

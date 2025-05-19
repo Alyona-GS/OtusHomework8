@@ -31,7 +31,7 @@ timeout(360) {
         }
 
         stage('Send notification') {
-            def report = readFile './allure-report/widgets/summary.json'
+            def report = readFile './api_tests_job/api-tests/allure-report/widgets/summary.json'
             def slurped = new JsonSlurperClassic().parseText(report)
             getNotifyMessage(slurped)
         }

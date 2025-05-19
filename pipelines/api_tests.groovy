@@ -10,7 +10,7 @@ timeout(360) {
 
         stage('Running tests') {
             def exitCode = sh(
-                    script: "cd api_tests; mvn test",
+                    script: "cd api_tests; mvn -e -X test",
                     returnStatus: true
             )
             if(exitCode > 0) {

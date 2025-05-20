@@ -22,21 +22,20 @@ timeout(360) {
         }
 
         stage('Publish allure') {
-            script('Publish allure report') {
-                dir('api-tests') {
-                    allure([
-                            includeProperties: false,
-                            jdk              : '',
-                            properties       : [],
-                            reportBuildPolicy: 'ALWAYS',
-                            results          : [[path: './allure-results']]
-                    ])
-                }
+            dir('api-tests') {
+                allure([
+                        includeProperties: false,
+                        jdk              : '',
+                        properties       : [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results          : [[path: './allure-results']]
+                ])
             }
         }
 
         stage('Send notification') {
-            def report = readFile './allure-report/widgets/summary.json'
+            def report = readFile './api-tests/allure-report/widgets/summary.json'
+            cat report
             def slurped = new JsonSlurperClassic().parseText(report)
             getNotifyMessage(slurped)
         }
@@ -48,8 +47,9 @@ def getNotifyMessage(statistic) {
     statistic.each { k, v ->
         message += "\t${k}: ${v}\n"
     }
+    echo message
 
-    withCredentials(string([credentialsId: chat_id, var: chat_id]), string([credentialsId: token, var: botToken])) {
+    withCredentials([string(credentialsId: 'chat_id', variable: 'chat_id'), string(credentialsId: 'token', variable: 'botToken')]) {
         sh "curl -s -X POST -H 'Content-Type: application/json' -d '{\"chat_id\": \"${chat_id}\", \"text\": \"${message}\"}' https://api.telegram.org/bot${botToken}/sendMessage\n"
     }
 }

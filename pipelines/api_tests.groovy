@@ -45,7 +45,7 @@ def getNotifyMessage(statistic) {
     }
     echo message
 
-    withCredentials(string([credentialsId: chat_id, var: chat_id]), string([credentialsId: token, var: botToken])) {
+    withCredentials([string(credentialsId: 'chat_id', variable: 'chat_id'), string(credentialsId: 'token', variable: 'botToken')]) {
         sh "curl -s -X POST -H 'Content-Type: application/json' -d '{\"chat_id\": \"${chat_id}\", \"text\": \"${message}\"}' https://api.telegram.org/bot${botToken}/sendMessage\n"
     }
 }
